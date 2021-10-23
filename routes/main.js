@@ -37,8 +37,7 @@ router.route("/api/signup")
 
 //--------------------------Sign in---------------------------------
 router.route("/api/signin")
-.post((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
+.post((req, res) => {
     const loginUser     =   new User({
         userEmail: req.body.userMemberEmail,
         password: req.body.userMemberPass,
@@ -88,7 +87,6 @@ router.route("/api/signin")
 // ---------------- Email Validation Check ------------------------
 router.route("/api/signup/check/email")
 .post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     const userEmail =   req.body.userMemberEmail;
     User.findOne({email: userEmail}, (err, foundUser) => {
         if(err){
@@ -109,7 +107,6 @@ router.route("/api/signup/check/email")
 // ------------------ ID Validation Check ------------------------
 router.route("/api/signup/check/id")
 .post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     const userId    =   req.body.userMemberId;
     User.findOne({userId: userId}, (err, foundUser) => {
         if(err){
@@ -143,7 +140,6 @@ router.route("/checkAuthentication")
 //--------------------------Logout---------------------------------
 router.route("/api/logout")
 .post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     if(req.isAuthenticated()){
         res.clearCookie("connect.sid");
         req.logOut(err => {
@@ -160,7 +156,6 @@ router.route("/api/logout")
 //--------------------------Delete Account---------------------------------
 router.route("/api/account/removal")
 .post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     User.findOne({email: req.body.userEmail}, (err, foundUser) => {
         if(err){
             console.log(err);
@@ -184,7 +179,6 @@ router.route("/api/account/removal")
 //--------------------------Change Password---------------------------------
 router.route("/api/account/change")
 .patch((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     User.findOne({email: req.body.userEmail}, (err, foundUser) => {
         if(err){
             console.log(err);
@@ -222,7 +216,6 @@ router.route("/api/board/boardlist")
     });
 })
 .post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     if(req.isAuthenticated()){
         const articleData = new Article({
             userId: req.body.userId,
@@ -239,7 +232,6 @@ router.route("/api/board/boardlist")
     };
 })
 .patch((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     if(JSON.stringify(req.body).includes("heart")){
         Article.updateOne({articleNum: req.body.postNum}, {$set:{heart:req.body.heart}}, err =>{
             if(!err){
