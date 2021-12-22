@@ -8,6 +8,7 @@
   },
   "author": "Yoonsuk Chang",
   "license": "ISC",
+  "proxy":"http://localhost:5000",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
