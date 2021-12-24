@@ -11,6 +11,15 @@ mongoose.connect(config.MONGODB_URI)
 .then(() => {console.log("DB is connected")})
 .catch(err => console.log(err));
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://yoondev83.github.io/YoonSeoulCrimeFront");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set("trust proxy", 1);
